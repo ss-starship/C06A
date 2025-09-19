@@ -1,7 +1,7 @@
 
 public class Burner {
 	public final static int TIME_DURATION = 2;
-	private enum Temperature {
+	public enum Temperature {
 		BLAZING,
 		HOT,
 		WARM,
@@ -9,8 +9,8 @@ public class Burner {
 	}
 
 	private Temperature myTemperature;
-	Setting mySetting; //don't know its privacy
-	int timer = 0;
+	private Setting mySetting; //don't know its privacy
+	private int timer = 0;
 	//end variables
 
 	//constructor
@@ -29,11 +29,13 @@ public class Burner {
 		switch (mySetting) {
 		case OFF:
 			mySetting = Setting.LOW;
+			break;
 		case LOW:
 			mySetting = Setting.MEDIUM;
+			break;
 		case MEDIUM:
 			mySetting = Setting.HIGH;
-			//case HIGH, setting HIGH
+			break;
 		default:
 			break;
 		}
@@ -43,24 +45,55 @@ public class Burner {
 	public void minusButton() {
 		switch (mySetting) {
 		//case OFF, setting OFF
-		case LOW:
-			mySetting = Setting.OFF;
-		case MEDIUM:
-			mySetting = Setting.LOW;
 		case HIGH:
 			mySetting = Setting.MEDIUM;
-		default:
+			break;
+		case MEDIUM:
+			mySetting = Setting.LOW;
+			break;
+		case LOW:
+			mySetting = Setting.OFF;
+			break;
+		case OFF:
+			//do nothing, already minimum
 			break;
 		}
 		timer = TIME_DURATION;
 	}
 
 	public void updateTemperature() {
-		//timer -= 1;
+		if (timer > 0) {
+			timer --;
+			return;
+		}
+		Temperature targetTemp = null;
+		switch (mySetting) {
+		case OFF:
+			targetTemp = Temperature.COLD;
+			break;
+		case LOW:
+			targetTemp = Temperature.WARM;
+			break;
+		case MEDIUM:
+			targetTemp = Temperature.HOT;
+			break;
+		case HIGH:
+			targetTemp = Temperature.BLAZING;
+			break;
+		}
+		
+	    if (myTemperature.ordinal() < targetTemp.ordinal()) {
+	        myTemperature = Temperature.values()[myTemperature.ordinal() + 1];
+	        timer = TIME_DURATION;
+	    } else if (myTemperature.ordinal() > targetTemp.ordinal()) {
+	        myTemperature = Temperature.values()[myTemperature.ordinal() - 1];
+	        timer = TIME_DURATION;
+	    }
 	}
 
+
 	public void display() {
-		System.out.println(mySetting + "....." + myTemperature);
+		System.out.println(mySetting.toString() + " - " + myTemperature);
 	}
 
 }

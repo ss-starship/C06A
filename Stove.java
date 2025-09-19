@@ -30,12 +30,21 @@ public class Stove {
 	 **** You must write the following method ****
 	 */
 	public void displayStove() {
-		for (int i=0; i<NUM_BURNERS; i++) {
-			burners.get(i).display();
-		}
-		//logic for RED LIGHT alert
-	}
-	
+		boolean alert = false;
+		
+	    //Show  burner status, check for blazing
+	    for (int i = 0; i < NUM_BURNERS; i++) {
+	        burners.get(i).display();
+	        if (burners.get(i).getMyTemperature() == Burner.Temperature.BLAZING) {
+	            alert = true;
+	        }
+	    }//logic for RED LIGHT alert
+    // Print alert once if any burner is blazing
+    if (alert) {
+        System.out.println("RED HOT BURNER ALERT!!!");
+    }
+}
+
 	/**
 	 * Test various burner actions by turning them up
 	 */
@@ -98,7 +107,7 @@ public class Stove {
 		// turn the burners up
 		stove.displayStove();
 		stove.turnBurnersUp();
-		stove.timePassing(6);
+		stove.timePassing(10);
 		System.out.println("\nStove after burners turned up ");
 		
 		// adjust the burners
