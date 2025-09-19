@@ -30,7 +30,10 @@ public class Stove {
 	 **** You must write the following method ****
 	 */
 	public void displayStove() {
-		//call Burner.display();
+		for (int i=0; i<NUM_BURNERS; i++) {
+			burners.get(i).display();
+		}
+		//logic for RED LIGHT alert
 	}
 	
 	/**

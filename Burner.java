@@ -41,7 +41,7 @@ public class Burner {
 	}
 	
 	public void display() {
-		
+		System.out.println(mySetting + "....." + myTemperature);
 	}
 
 }
