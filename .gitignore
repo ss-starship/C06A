@@ -1,4 +1,11 @@
-/Stove.class
-/Setting.class
-/Burner$Temperature.class
-/Burner.class
+# Ignore all compiled class files
+*.class
+
+# Ignore Eclipse project metadata
+.classpath
+.project
+.settings/
+
+# Ignore build output folders
+bin/
+target/
