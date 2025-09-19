@@ -8,7 +8,7 @@ public enum Setting {
 	private final String display;
 	
 	private Setting(String display) {
-		this.display = display;
+		this.display = "[" + display + "]";
 	}
 	
 	@Override

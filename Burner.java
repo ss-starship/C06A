@@ -2,10 +2,10 @@
 public class Burner {
 	public final static int TIME_DURATION = 2;
 	public enum Temperature {
-		BLAZING,
-		HOT,
+		COLD,
 		WARM,
-		COLD
+		HOT,
+		BLAZING
 	}
 
 	private Temperature myTemperature;
@@ -62,54 +62,20 @@ public class Burner {
 	}
 
 	public void updateTemperature() {
-		if (timer > 0) {
-			timer --;
-			return;
-		}
-		Temperature targetTemp = null;
-		switch (mySetting) {
-		case OFF:
-			targetTemp = Temperature.COLD;
-			break;
-		case LOW:
-			targetTemp = Temperature.WARM;
-			break;
-		case MEDIUM:
-			targetTemp = Temperature.HOT;
-			break;
-		case HIGH:
-			targetTemp = Temperature.BLAZING;
-			break;
-		}
-
-		if (myTemperature.ordinal() < targetTemp.ordinal()) {
-			myTemperature = Temperature.values()[myTemperature.ordinal() + 1];
-			timer = TIME_DURATION;
-		} else if (myTemperature.ordinal() > targetTemp.ordinal()) {
-			myTemperature = Temperature.values()[myTemperature.ordinal() - 1];
-			timer = TIME_DURATION;
-		}
+		timer -= 1;
+		if (timer == 0) {
+			if (myTemperature.ordinal() < mySetting.ordinal()) {
+				myTemperature = Temperature.values()[myTemperature.ordinal() + 1];
+				timer = TIME_DURATION;
+			} else if (myTemperature.ordinal() > mySetting.ordinal()) {
+				myTemperature = Temperature.values()[myTemperature.ordinal() - 1];
+				timer = TIME_DURATION;
+			}
+		}	
 	}
 
 
 	public void display() {
-		String settingSymbol = "";
-		
-		switch (mySetting) {
-		case OFF:    
-			settingSymbol = "---"; 
-			break;
-		case LOW:    
-			settingSymbol = "--+"; 
-			break;
-		case MEDIUM: 
-			settingSymbol = "-++"; 
-			break;
-		case HIGH:   
-			settingSymbol = "+++"; 
-			break;
-		}
-
 		String tempText = "";
 		switch (myTemperature) {
 		case COLD:    
@@ -126,7 +92,7 @@ public class Burner {
 			break;
 		}
 
-		System.out.println("[" + settingSymbol + "]....." + tempText);
+		System.out.println(mySetting + "....." + tempText);
 	}
 }
 
