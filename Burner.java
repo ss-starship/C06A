@@ -81,19 +81,52 @@ public class Burner {
 			targetTemp = Temperature.BLAZING;
 			break;
 		}
-		
-	    if (myTemperature.ordinal() < targetTemp.ordinal()) {
-	        myTemperature = Temperature.values()[myTemperature.ordinal() + 1];
-	        timer = TIME_DURATION;
-	    } else if (myTemperature.ordinal() > targetTemp.ordinal()) {
-	        myTemperature = Temperature.values()[myTemperature.ordinal() - 1];
-	        timer = TIME_DURATION;
-	    }
+
+		if (myTemperature.ordinal() < targetTemp.ordinal()) {
+			myTemperature = Temperature.values()[myTemperature.ordinal() + 1];
+			timer = TIME_DURATION;
+		} else if (myTemperature.ordinal() > targetTemp.ordinal()) {
+			myTemperature = Temperature.values()[myTemperature.ordinal() - 1];
+			timer = TIME_DURATION;
+		}
 	}
 
 
 	public void display() {
-		System.out.println(mySetting.toString() + " - " + myTemperature);
-	}
+		String settingSymbol = "";
+		
+		switch (mySetting) {
+		case OFF:    
+			settingSymbol = "---"; 
+			break;
+		case LOW:    
+			settingSymbol = "--+"; 
+			break;
+		case MEDIUM: 
+			settingSymbol = "-++"; 
+			break;
+		case HIGH:   
+			settingSymbol = "+++"; 
+			break;
+		}
 
+		String tempText = "";
+		switch (myTemperature) {
+		case COLD:    
+			tempText = "cooool"; 
+			break;
+		case WARM:    
+			tempText = "warm"; 
+			break;
+		case HOT:     
+			tempText = "CAREFUL"; 
+			break;
+		case BLAZING: 
+			tempText = "VERY HOT! DON'T TOUCH"; 
+			break;
+		}
+
+		System.out.println("[" + settingSymbol + "]....." + tempText);
+	}
 }
+

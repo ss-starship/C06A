@@ -41,7 +41,7 @@ public class Stove {
 	    }//logic for RED LIGHT alert
     // Print alert once if any burner is blazing
     if (alert) {
-        System.out.println("RED HOT BURNER ALERT!!!");
+        System.out.println("RED LIGHT - HOT BURNER ALERT");
     }
 }
 
